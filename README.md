@@ -168,3 +168,23 @@ function isPointWithinTriangle(
   return s > 0 && t > 0 && s + t < 2 * A * sign;
 }
 ```
+
+## Getting visible width/height at z depth for perspective camera
+
+```ts
+function getVisibleHeight(
+  camera: THREE.PerspectiveCamera,
+  depth: number
+) {
+  const { z } = camera.position;
+  depth += z;
+
+  const verticalFovRadians = (camera.fov * Math.PI) / 180;
+
+  return Math.tan(verticalFovRadians / 2) * depth * 2;
+}
+
+function getVisibleWidth(camera: THREE.PerspectiveCamera, depth: number) {
+  return getVisbleHeight(camera, depth) * camera.aspect;
+}
+```
